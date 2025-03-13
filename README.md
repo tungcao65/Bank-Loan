@@ -164,7 +164,7 @@ ORDER BY Total_Applications DESC;
 ### 📌 **Optimize Loan Marketing Strategies**  
 - Promote loans **based on borrower needs** *(Debt Consolidation, Home Improvement)*.  
 - Use **regional analysis** to identify **high-loan-demand states**.
-- 
+-  
 ## 🛠 Tools Used  
 
 - **MySQL** – Data storage, queries, and trend analysis  
