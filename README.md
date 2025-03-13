@@ -65,7 +65,7 @@ By analyzing past loan data, this project aims to provide **actionable insights*
 
 ### **Overview Dashboard**  
 📍 Displays **loan trends by month, region, term, employment length, and purpose**.  
-![Overview Dashboard](./Overview.png)  
+![Overview Dashboard](./Overview1.png)  
 
 ### **Details Dashboard**  
 📋 Presents a **detailed loan dataset**, allowing users to filter by **purpose, grade, and verification status**.  
