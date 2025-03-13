@@ -96,36 +96,53 @@ By analyzing past loan data, this project aims to provide **actionable insights*
 
 ## 💾 SQL Queries  
 
-### **1. Loan Portfolio Metrics**  
-```sql
-SELECT COUNT(*) AS Total_Loan_Applications FROM bank_loans;
-SELECT SUM(loan_amount) AS Total_Funded_Amount FROM bank_loans;
-SELECT SUM(total_payment) AS Total_Amount_Received FROM bank_loans;
-SELECT AVG(interest_rate) AS Average_Interest_Rate FROM bank_loans;
-SELECT AVG(loan_amount) / AVG(total_payment) AS Average_DTI FROM bank_loans;
-```
+## 💾 Key SQL Queries  
 
-### **2. Loan Trends by Month**  
+### **1️⃣ Total Loan Applications & Funded Amount**  
 ```sql
-SELECT MONTH(issue_date) AS Month, COUNT(*) AS Total_Applications 
-FROM bank_loans 
+SELECT COUNT(id) AS Total_Loan_Applications FROM BankLoanDB.financial_loan;
+SELECT SUM(loan_amount) AS Total_Funded_Amount FROM BankLoanDB.financial_loan;
+```
+📌 Insight: Tracks the total number of loans issued and total capital allocated.
+
+### 2️⃣ Loan Trends by Month
+```sql
+SELECT MONTH(issue_date) AS Month, COUNT(id) AS Total_Applications 
+FROM BankLoanDB.financial_loan 
 GROUP BY Month 
 ORDER BY Month;
-``` 
-### 3. Loan Applications by Purpose
-```sql
-SELECT purpose, COUNT(*) AS Total_Applications, SUM(loan_amount) AS Funded_Amount
-FROM bank_loans 
-GROUP BY purpose 
-ORDER BY Funded_Amount DESC;
 ```
-### 4. Good vs. Bad Loans
+📌 Insight: Helps analyze monthly loan application trends to spot seasonal demand.
+
+### 3️⃣ Good vs. Bad Loan Percentage
 ```sql
-SELECT 
-    (COUNT(CASE WHEN grade IN ('A', 'B') THEN id END) * 100.0 / COUNT(*)) AS Good_Loan_Percentage,
-    (COUNT(CASE WHEN grade IN ('C', 'D', 'E') THEN id END) * 100.0 / COUNT(*)) AS Bad_Loan_Percentage
-FROM bank_loans;
+SELECT  
+    ROUND((COUNT(CASE WHEN loan_status IN ('Fully Paid', 'Current') THEN id END) * 100.0) / COUNT(id)) 
+    AS Good_Loan_Percentage,
+    ROUND((COUNT(CASE WHEN loan_status = 'Charged Off' THEN id END) * 100.0) / COUNT(id)) 
+    AS Bad_Loan_Percentage
+FROM BankLoanDB.financial_loan;
 ```
+📌 Insight: Measures successful vs. defaulted loans to assess risk.
+
+### 4️⃣ Loan Status by State
+```sql
+SELECT address_state, COUNT(id) AS Total_Applications, SUM(loan_amount) AS Loan_Amount 
+FROM BankLoanDB.financial_loan 
+GROUP BY address_state
+ORDER BY Loan_Amount DESC;
+```
+📌 Insight: Identifies which states have the highest loan demand and funding.
+
+### 5️⃣ Loan Status by Purpose
+```sql
+SELECT purpose, COUNT(id) AS Total_Applications, SUM(loan_amount) AS Loan_Amount 
+FROM BankLoanDB.financial_loan 
+GROUP BY purpose
+ORDER BY Total_Applications DESC;
+```
+📌 Insight: Determines the most common loan purposes and their financial impact.
+
 ## 🎯 Expected Outcomes  
 
 ✔ **Understand loan trends** based on **monthly applications, funding, and repayments**.  
