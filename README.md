@@ -94,7 +94,6 @@ By analyzing past loan data, this project aims to provide **actionable insights*
 
 ---
 
-## 💾 SQL Queries  
 
 ## 💾 Key SQL Queries  
 
